@@ -1,15 +1,30 @@
 export const profile = {
   name: "Sunil Sakri",
+  initials: "SS",
   title: "Product Manager, Supply Chain & Fulfillment",
   company: "Tesco Technology",
   location: "Bengaluru, Karnataka, India",
+  timeZone: "Asia/Kolkata",
   email: "sunilsakri1994@gmail.com",
+  gmailComposeUrl:
+    "https://mail.google.com/mail/?view=cm&fs=1&to=sunilsakri1994@gmail.com",
   linkedin: "https://www.linkedin.com/in/sunil-sakri",
   resume: "/Sunil-Sakri-Resume.pdf",
   tagline: "I build supply chain systems that move goods more efficiently at scale.",
   summary:
     "At Tesco, I own the ordering engine behind one of the UK's largest grocery networks — 500K+ SKUs, multi-depot distribution, millions of orders weekly. I led the platform's modernization from a legacy monolith to an API-first architecture, then layered in ML-driven forecasting, real-time demand signals, and inventory optimization algorithms that measurably moved the needle.",
 };
+
+export const quote = {
+  lead: "The best supply chain isn't the fastest one —",
+  rest: "it's the one that knows exactly what to move, and when.",
+};
+
+export const taglines = [
+  { text: "I lead ", highlight: "supply chain systems", suffix: " end-to-end.", color: "#6F8CCA" },
+  { text: "", highlight: "API-first platforms", suffix: " are how I like to build.", color: "#6FCAA0" },
+  { text: "Currently obsessed with ", highlight: "demand forecasting", suffix: ".", color: "#BA6FCA" },
+];
 
 export const topSkills = ["Supply Chain Management", "CI/CD", "Angular"];
 
@@ -151,29 +166,5 @@ export const education = [
     degree: "B.E., Electronics and Communication",
     period: "2012 — 2016",
   },
-  {
-    school: "Sri Chaitanya Junior College, Hyderabad",
-    degree: "Intermediate",
-    period: "2010 — 2012",
-  },
-  {
-    school: "Defence Laboratories School",
-    degree: "Class X",
-    period: "2000 — 2010",
-  },
 ];
 
-export const certifications = [
-  "IT Project Management",
-  "Digital Product Management: Modern Fundamentals",
-  "Product Analytics Micro-Certification",
-];
-
-export const honors = ["Extra Miler Award", "Onsite Recognition"];
-
-export const languages = [
-  { name: "English", level: "Full Professional" },
-  { name: "Hindi", level: "Full Professional" },
-  { name: "Telugu", level: "Full Professional" },
-  { name: "Kannada", level: "Native or Bilingual" },
-];

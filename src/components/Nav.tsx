@@ -1,96 +1,48 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-const links = [
-  { href: "#about", label: "About" },
-  { href: "#experience", label: "Experience" },
-  { href: "#skills", label: "Skills" },
-  { href: "#education", label: "Education" },
-  { href: "#contact", label: "Contact" },
-];
+import { profile } from "@/lib/data";
 
 export default function Nav() {
-  const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [time, setTime] = useState<string | null>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const tick = () =>
+      setTime(
+        new Intl.DateTimeFormat("en-GB", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+          timeZone: profile.timeZone,
+        }).format(new Date())
+      );
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
   }, []);
 
   return (
-    <header
-      className={`sticky top-0 z-50 transition-colors ${
-        scrolled
-          ? "bg-white/80 backdrop-blur-md border-b border-slate-200 dark:bg-slate-950/80 dark:border-slate-800"
-          : "bg-transparent"
-      }`}
-    >
-      <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+    <header className="relative mx-auto w-full max-w-3xl px-6 pt-8">
+      <div className="glow-soft pointer-events-none absolute inset-x-0 top-0 mx-auto h-40 w-[90vw] max-w-3xl" />
+      <div className="relative z-10 flex items-center justify-between gap-4">
+        <div className="flex flex-col gap-1 font-mono text-sm font-semibold uppercase text-neutral-300 sm:flex-row sm:items-center sm:gap-2.5">
+          <span suppressHydrationWarning>{time ?? "--:--:--"}</span>
+          <span>{profile.location}</span>
+        </div>
         <a
-          href="#top"
-          className="font-semibold tracking-tight text-slate-900 dark:text-slate-100"
+          href={profile.resume}
+          download
+          className="inline-flex items-center gap-2 rounded-[8px] border border-black/15 bg-white px-4 py-2 text-sm font-medium text-neutral-900 transition hover:bg-black/5"
         >
-          Sunil Sakri
-        </a>
-
-        <ul className="hidden gap-8 text-sm font-medium text-slate-600 dark:text-slate-400 sm:flex">
-          {links.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className="transition-colors hover:text-teal-600 dark:hover:text-teal-400"
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <button
-          aria-label="Toggle menu"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="flex h-9 w-9 items-center justify-center rounded-md text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 sm:hidden"
-        >
-          <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-            {open ? (
-              <path
-                d="M6 6l12 12M18 6L6 18"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            ) : (
-              <path
-                d="M4 7h16M4 12h16M4 17h16"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            )}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
           </svg>
-        </button>
-      </nav>
-
-      {open && (
-        <ul className="flex flex-col gap-1 border-t border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-600 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300 sm:hidden">
-          {links.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="block rounded-md px-2 py-2 hover:bg-slate-100 dark:hover:bg-slate-800"
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
+          Resume
+        </a>
+      </div>
     </header>
   );
 }
